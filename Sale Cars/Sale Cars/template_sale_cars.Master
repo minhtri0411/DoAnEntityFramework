@@ -1,0 +1,175 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="template_sale_cars.master.cs" Inherits="Sale_Cars.template_sale_cars" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>
+        <asp:ContentPlaceHolder ID="title" runat="server">
+        </asp:ContentPlaceHolder>
+    </title>
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href='http://fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
+    <script src="js/jquery.min.js"></script>
+
+    <%-- menu --%>
+    <script src="js/script_menu.js"></script>
+    <link href="css/styles_menu.css" rel="stylesheet" />
+    <%-- font awesome--%>
+    <link href="css/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body>
+    <form id="form1" runat="server">
+        <div class="header-bg">
+            <div class="wrap">
+                <div class="h-bg">
+                    <div class="total">
+                        <div class="header">
+                            <div class="box_header_user_menu">
+                                <ul class="user_menu">
+                                    <li class="first">
+                                        <a href="index.aspx">
+                                            <div class="button-t"><span>Shipping &amp; Returns</span></div>
+                                        </a></li>
+                                    <li class="last">
+                                        <a href="Search.aspx">
+                                            <div class="button-t"><i class="fa fa-search"></i><span> Advanced Search</span></div>
+                                        </a></li>
+
+                                    <asp:Panel ID="pnNotLogged" runat="server" CssClass="float-rt">
+                                        <li class="">
+                                            <a href="logreg.aspx">
+                                                <div class="button-t"><i class="fa fa-user-plus"></i><span> Create an Account</span></div>
+                                            </a>
+                                        </li>
+                                        <li class="last">
+                                            <a href="login.aspx">
+                                                <div class="button-t"><i class="fa fa-male"></i><span> Log in</span></div>
+                                            </a></li>
+                                    </asp:Panel>
+
+                                    <asp:Panel ID="pnLogged" runat="server" Visible="false" CssClass="float-rt">
+                                        
+                                        <li><i class="fa fa-info-circle"> Hi,</i> 
+                                            <asp:HyperLink ID="lnkUsername" runat="server" NavigateUrl="profile.aspx">{0}</asp:HyperLink>
+                                        </li>
+                                        <li>
+                                            <asp:LinkButton ID="btnLogout" runat="server" OnClick="btnLogout_Click" ValidationGroup="logout">Logout</asp:LinkButton>
+                                        </li>
+                                    </asp:Panel>
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="header-bot">
+                                <div class="logo">
+                                    <a href="index.html">
+                                        <img src="images/logo.png" alt="" /></a>
+                                </div>
+                                <div class="search">                                    
+                                    <asp:TextBox ID="txtSearch" runat="server" CssClass="textbox" placeholder="Search..."></asp:TextBox>
+                                    <asp:Button ID="btnSearch" class="gray-button" runat="server" Text="Search" ValidationGroup="GSearch" OnClick="btnSearch_Click" />
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="menu">
+                            <div class="top-nav">
+                                <ul>
+                                    <li><a href="index.aspx"><i class="fa fa-home fa-lg"> </i> Home</a></li>
+                                    <li><a href="viewproducts.aspx"><i class="fa fa-car fa-lg"> </i> Products</a></li>
+                                    <li><a href="contact.aspx"><i class="fa fa-credit-card fa-lg"></i> Contact</a></li>
+                                </ul>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="banner-top">
+                            <div class="header-bottom">
+                                <div class="header_bottom_right_images">
+                                    <asp:ContentPlaceHolder ID="right" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </div>
+                                <div class="header-para" style="float: right;">
+                                    <div class="categories">
+                                        <asp:Panel ID="pnCart" runat="server" Visible="false">
+                                            <div class="box">
+                                                <div class="box-heading">
+                                                    <h1><a href="#">Cart:&nbsp;</a></h1>
+                                                </div>
+                                                <div class="box-content">
+                                                    <asp:HyperLink ID="lnkCart" runat="server" NavigateUrl="managecart.aspx" ForeColor="#D54F30 ">
+                                                        Now in your cart 0 items <i class="fa fa-shopping-cart"></i>
+                                                    </asp:HyperLink>
+                                                    
+                                                </div>
+                                            </div>
+                                        </asp:Panel>
+
+                                        <div id='cssmenu'>
+                                            <ul>
+                                                <li class='has-sub'><a href='#'><span>Branches</span></a>
+                                                    <ul>
+                                                        <asp:ListView ID="lvwTypes" runat="server">
+                                                            <ItemTemplate>
+                                                                <li>
+                                                                    <a href="viewProducts.aspx?typeID=<%# Eval("TypeID") %>"><span><%# Eval("TypeName") %></span></a>
+                                                                </li>
+                                                            </ItemTemplate>
+                                                        </asp:ListView>
+                                                    </ul>
+                                                </li>
+
+                                                <li class='has-sub'><a href='#'><span>Categories</span></a>
+                                                    <ul>
+                                                        <li>
+                                                            <asp:ListView ID="lvwCategories" runat="server">
+                                                                <ItemTemplate>
+                                                                    <li><a href="viewProducts.aspx?catID=<%# Eval("catID") %>"><span><%# Eval("CatName") %> </span></a></li>
+                                                                </ItemTemplate>
+                                                            </asp:ListView>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="box-title">
+                                            <span class="title-icon"></span><a href="">Photos</a>
+                                        </div>
+                                        <div class="section group example">
+                                            <div class="col_1_of_2 span_1_of_2">
+                                                <img src="images/pic21.jpg" alt="" />
+                                                <img src="images/pic24.jpg" alt="" />
+                                                <img src="images/pic25.jpg" alt="" />
+                                                <img src="images/pic27.jpg" alt="" />
+                                            </div>
+                                            <div class="col_1_of_2 span_1_of_2">
+                                                <img src="images/pic22.jpg" alt="" />
+                                                <img src="images/pic23.jpg" alt="" />
+                                                <img src="images/pic26.jpg" alt="" />
+                                                <img src="images/pic28.jpg" alt="" />
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="footer-bottom">
+                                    <div class="copy">
+                                        <p>All rights Reserved | Design cover by <a href="https://www.facebook.com/minhtri0411">Chẹp Chẹp Team</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

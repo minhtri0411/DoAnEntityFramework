@@ -1,0 +1,11 @@
+D:\Source files\Visual\Sale Cars\Sale Cars\bin\Sale Cars.dll
+D:\Source files\Visual\Sale Cars\Sale Cars\bin\Sale Cars.pdb
+D:\Source files\Visual\Sale Cars\Sale Cars\obj\Debug\Sale Cars.dll
+D:\Source files\Visual\Sale Cars\Sale Cars\obj\Debug\Sale Cars.pdb
+D:\Source files\Visual\Sale Cars\Sale Cars\bin\EntityFramework.dll
+D:\Source files\Visual\Sale Cars\Sale Cars\bin\EntityFramework.SqlServer.dll
+D:\Source files\Visual\Sale Cars\Sale Cars\bin\EntityFramework.xml
+D:\Source files\Visual\Sale Cars\Sale Cars\bin\EntityFramework.SqlServer.xml
+D:\Source files\Visual\Sale Cars\Sale Cars\obj\Debug\Sale Cars.csprojResolveAssemblyReference.cache
+D:\Source files\Visual\Sale Cars\Sale Cars\bin\BotDetect.dll
+D:\Source files\Visual\Sale Cars\Sale Cars\bin\BotDetect.pdb

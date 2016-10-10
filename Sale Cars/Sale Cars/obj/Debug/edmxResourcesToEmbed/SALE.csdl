@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="saleCarsModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="SaleCarsEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="saleCarsModel.Category" />
+    <EntitySet Name="Orderdetails" EntityType="saleCarsModel.Orderdetail" />
+    <EntitySet Name="Orders" EntityType="saleCarsModel.Order" />
+    <EntitySet Name="Products" EntityType="saleCarsModel.Product" />
+    <EntitySet Name="Types" EntityType="saleCarsModel.Type" />
+    <EntitySet Name="Users" EntityType="saleCarsModel.User" />
+    <AssociationSet Name="UserOrder" Association="saleCarsModel.UserOrder">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="OrderOrderdetail" Association="saleCarsModel.OrderOrderdetail">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="Orderdetail" EntitySet="Orderdetails" />
+    </AssociationSet>
+    <AssociationSet Name="ProductOrderdetail" Association="saleCarsModel.ProductOrderdetail">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Orderdetail" EntitySet="Orderdetails" />
+    </AssociationSet>
+    <AssociationSet Name="CategoryProduct" Association="saleCarsModel.CategoryProduct">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="TypeProduct" Association="saleCarsModel.TypeProduct">
+      <End Role="Type" EntitySet="Types" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CatID" />
+    </Key>
+    <Property Name="CatID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CatName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Products" Relationship="saleCarsModel.CategoryProduct" FromRole="Category" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Orderdetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="ProID" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Int64" Nullable="false" />
+    <Property Name="Amount" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="saleCarsModel.OrderOrderdetail" FromRole="Orderdetail" ToRole="Order" />
+    <NavigationProperty Name="Product" Relationship="saleCarsModel.ProductOrderdetail" FromRole="Orderdetail" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="Total" Type="Int64" Nullable="false" />
+    <Property Name="Shipment" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="saleCarsModel.UserOrder" FromRole="Order" ToRole="User" />
+    <NavigationProperty Name="Orderdetails" Relationship="saleCarsModel.OrderOrderdetail" FromRole="Order" ToRole="Orderdetail" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProID" />
+    </Key>
+    <Property Name="ProID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ProName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="TinyDes" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="FullDes" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <Property Name="CatID" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="TypeID" Type="Int32" Nullable="false" />
+    <Property Name="Sales" Type="Int32" Nullable="false" />
+    <Property Name="DOR" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Views" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Orderdetails" Relationship="saleCarsModel.ProductOrderdetail" FromRole="Product" ToRole="Orderdetail" />
+    <NavigationProperty Name="Category" Relationship="saleCarsModel.CategoryProduct" FromRole="Product" ToRole="Category" />
+    <NavigationProperty Name="Type" Relationship="saleCarsModel.TypeProduct" FromRole="Product" ToRole="Type" />
+  </EntityType>
+  <EntityType Name="Type">
+    <Key>
+      <PropertyRef Name="TypeID" />
+    </Key>
+    <Property Name="TypeID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Products" Relationship="saleCarsModel.TypeProduct" FromRole="Type" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="f_ID" />
+    </Key>
+    <Property Name="f_ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="f_Username" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="f_Password" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="f_Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="f_Email" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="f_DOB" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="f_Permission" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="saleCarsModel.UserOrder" FromRole="User" ToRole="Order" />
+  </EntityType>
+  <Association Name="UserOrder">
+    <End Type="saleCarsModel.User" Role="User" Multiplicity="1" />
+    <End Type="saleCarsModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="f_ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderOrderdetail">
+    <End Type="saleCarsModel.Order" Role="Order" Multiplicity="1" />
+    <End Type="saleCarsModel.Orderdetail" Role="Orderdetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="Orderdetail">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductOrderdetail">
+    <End Type="saleCarsModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="saleCarsModel.Orderdetail" Role="Orderdetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProID" />
+      </Principal>
+      <Dependent Role="Orderdetail">
+        <PropertyRef Name="ProID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CategoryProduct">
+    <End Type="saleCarsModel.Category" Role="Category" Multiplicity="1" />
+    <End Type="saleCarsModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CatID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="CatID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TypeProduct">
+    <End Type="saleCarsModel.Type" Role="Type" Multiplicity="1" />
+    <End Type="saleCarsModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Type">
+        <PropertyRef Name="TypeID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="TypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
